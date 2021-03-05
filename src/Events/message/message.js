@@ -22,6 +22,14 @@ module.exports = class extends Event {
 			await sleep(1000 * 60 * 5);
 			message.channel.send(`${message.author} You can tips again`);
 		}
+		if (message.content === 'tdaily' && message.author.id === '201160167272742915') {
+			await sleep(1000);
+			const m = await message.channel.messages.fetch({ limit: 1, after: message.id });
+			const embed = m.first().embeds[0];
+			if (embed.color === 14417920) return;
+			await sleep(1000 * 60 * 1440);
+			message.channel.send(`${message.author} You can tips again`);
+		}
 
 		if (!message.guild || message.author.bot) return;
 
@@ -29,7 +37,7 @@ module.exports = class extends Event {
 
 		const prefix = message.content.match(mentionRegexPrefix) ?
 			message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
-
+		if (message.content.startsWith(prefix)) return;
 		const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		const command = this.client.commands.get(cmd.toLowerCase()) || this.client.commands.get(this.client.aliases.get(cmd.toLowerCase()));
